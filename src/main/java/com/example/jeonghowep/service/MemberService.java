@@ -6,6 +6,8 @@ import com.example.jeonghowep.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -14,4 +16,22 @@ public class MemberService {
         MemberEntity memberEntity = MemberEntity.toMemberEntity(memberDTO);
         memberRepository.save(memberEntity);
     }
+
+    public MemberDTO login(MemberDTO memberDTO) {
+        //회원이 입력한 id로 db에서 조회
+        Optional<MemberEntity> byMemberid = memberRepository.findByMemberid(memberDTO.getMemberid());
+        if(byMemberid.isPresent()){
+            MemberEntity memberEntity = byMemberid.get();
+            if(memberEntity.getMemberpassword().equals(memberDTO.getMemberpassword())){
+                MemberDTO dto = MemberDTO.toMemberDTO(memberEntity);
+                return dto;
+            }else{
+            return null;
+            }
+
+        }else{
+            return null;
+        }
+
+}
 }

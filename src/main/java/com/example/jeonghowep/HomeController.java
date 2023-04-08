@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/jeonghowep")
@@ -34,7 +36,17 @@ public class HomeController {
         memberService.register(memberDTO);
         return "loginpage";
     }
+    @PostMapping("/loginpage")
+    public String loginpage(@ModelAttribute MemberDTO memberDTO, HttpSession session){
+        MemberDTO loginResult=memberService.login(memberDTO);
+        if(loginResult!=null){
+            session.setAttribute("loginid",loginResult.getMemberid());
+            return "homepage";
+        }else {
+            return "loginpage";
+        }
 
+    }
 
     }
 

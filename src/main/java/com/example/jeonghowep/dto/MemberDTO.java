@@ -16,5 +16,12 @@ public class MemberDTO {
     private String memberid;
     private String memberpassword;
 
-
+    public static MemberDTO toMemberDTO(MemberEntity memberEntity){
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setId(memberEntity.getId());
+        memberDTO.setMemberemail(memberEntity.getMemberemail());
+        memberDTO.setMemberid(memberEntity.getMemberid());
+        memberDTO.setMemberpassword(memberEntity.getMemberpassword());
+        return memberDTO;
+    }
 }
