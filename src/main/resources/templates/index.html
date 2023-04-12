@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>오늘의 번호</title>
+        <style>body
+        {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #e9e9e9;
+        }
+        .navigator{
+            position: relative;
+            width: 100%;
+            display: block;
+            height: 70px;
+            background-color: #000 !important;
+            flex-flow: row nowrap;
+        }
+        .nav_area{
+            float: left;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .icon{
+            float: left;
+        }
+        .text{
+            font-weight: bold;
+            font-style: normal;
+            margin-left: 45px;
+            display: inline-block;
+            color:white;
+            text-decoration: none;
+            font-size: 20px;
+        }
+        .nav_group{
+            margin-left: 30px;
+            float: right;
+        }
+        .nav_link{
+            display: inline-block;
+            color:white;
+            text-decoration: none;
+            font-size: 20px;
+        }
+        .nav_group [class^=nav_link]:before{
+            content: '';
+            display: inline-block;
+            width: 2px;
+            height: 30px;
+            margin-left: 15px;
+            margin-right: 15px;
+            background-color: white;
+            vertical-align: top;
+        }
+        .main{
+            min-height: 350px;
+            width: auto !important;
+        }
+        .footer{
+            width:100%;
+            height:140px;
+            position:absolute;
+            text-align: center;
+            background-color: #6a737b;
+        }
+        .circle{
+            margin-top: -50px;
+            display: block;
+            margin-right: auto;
+            margin-left: auto;
+            border-radius: 50%;
+        }
+        .name{
+            display: block;
+            margin-right: auto;
+            margin-left: auto;
+            color: #FFaa00;
+            line-height: 1.8;
+        }
+        p{
+            margin: 0;
+            color:white;
+        }
+        .blog-link{
+            text-decoration: none;
+            color:white;
+        }
+
+        .main{
+            height: auto !important;
+        }
+        .numberdiv{
+            width:60%;
+            margin-top:30px;
+            margin-left:auto;
+            margin-right:auto;
+            margin-bottom: 20px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            border: 1px solid rgba(0,0,0,.125);
+            border-radius: .25rem;
+        }
+        .top-div{
+            border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+            box-sizing: border-box;
+            line-height: 30px;
+            background-color: #006400;
+            color:white;
+        }
+        .top-div-name{
+            font-weight: bold;
+            font-size: 15px;
+            padding-left:10px;
+
+        }
+        .numberset{
+            width:400px;
+            margin-left:auto;
+            margin-right:auto;
+            display: flex;
+        }
+        .lottocircle{
+            display: table;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            border: none;
+            text-align: center;
+            font-weight: bold;
+            font-size:15px;
+            margin-top:10px;
+            margin-bottom: 10px;
+            margin-left:15px;
+            margin-right:15px;
+        }
+        .value{
+            display:table-cell;
+            vertical-align: middle;
+        }
+        .div{
+            position: relative;
+            margin-left:auto;
+            margin-right:auto;
+            padding-bottom: 100px;
+            width:800px;
+            min-height:100px;
+        }
+        .checkbox
+        {
+            margin-left:auto;
+            margin-right:auto;
+            margin-bottom: 30px;
+            width: 300px;
+        }
+        .select{
+            margin-top : 130px;
+        }
+        .checkselect{
+            margin-top : 130px;
+            padding-bottom:  20px;
+        }
+        .title1{
+            font-size: large;
+            margin-left: auto;
+            margin-right: auto;
+            width: 120px;
+            font-weight: 700;
+            padding-bottom: 20px;
+        }
+        .title2{
+            font-size: large;
+            margin-left: auto;
+            margin-right: auto;
+            width: 300px;
+            font-weight: 700;
+            padding-bottom: 20px;
+        }
+
+        {
+            user-select: none;
+        }
+
+        *:focus
+        {
+            outline: none;
+        }
+
+        html, body
+        {
+            height: 100%;
+            min-height: 100%;
+        }
+
+        body
+        {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ebf3f3;
+        }
+
+        .brd
+        {
+            border: 1px solid #e2eded;
+            border-color: #eaf1f1 #e4eded #dbe7e7 #e4eded;
+        }
+
+        #app-cover
+        {
+            position: relative;
+            margin-left:auto;
+            margin-right:auto;
+            width: 300px;
+            height: 42px;
+        }
+
+        #select-button
+        {
+            position: relative;
+            height: 16px;
+            padding: 12px 14px;
+            background-color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #options-view-button
+        {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        #selected-value
+        {
+            font-size: 16px;
+            line-height: 1;
+            margin-right: 26px;
+        }
+
+        .option i
+        {
+            width: 16px;
+            height: 16px;
+        }
+
+        .option, .label
+        {
+            color: #2d3667;
+            font-size: 16px;
+        }
+
+        #chevrons
+        {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 12px;
+            padding: 9px 14px;
+        }
+
+        #chevrons i
+        {
+            display: block;
+            height: 50%;
+            color: #d1dede;
+            font-size: 12px;
+            text-align: right;
+        }
+
+        #options-view-button:checked + #select-button #chevrons i
+        {
+            color: #2d3667;
+        }
+
+        .options
+        {
+            position: absolute;
+            left: 0;
+            width: 250px;
+        }
+
+        #options
+        {
+            position: absolute;
+            top: 42px;
+            right: 0;
+            left: 0;
+            width: 298px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 4px;
+        }
+
+        #options-view-button:checked ~ #options
+        {
+            border: 1px solid #e2eded;
+            border-color: #eaf1f1 #e4eded #dbe7e7 #e4eded;
+        }
+
+        .option
+        {
+            position: relative;
+            line-height: 1;
+            transition: 0.3s ease all;
+            z-index: 2;
+        }
+
+        .option i
+        {
+            position: absolute;
+            left: 14px;
+            padding: 0;
+            display: none;
+        }
+
+        #options-view-button:checked ~ #options .option i
+        {
+            display: block;
+            padding: 12px 0;
+        }
+
+        .label
+        {
+            display: none;
+            padding: 0;
+            margin-left: 27px;
+        }
+
+        #options-view-button:checked ~ #options .label
+        {
+            display: block;
+            padding: 12px 14px;
+        }
+
+        .s-c
+        {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 50%;
+        }
+
+        .s-c.top
+        {
+            top: 0;
+        }
+
+        .s-c.bottom
+        {
+            bottom: 0;
+        }
+
+        input[type="radio"]
+        {
+            position: absolute;
+            right: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            margin: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .s-c:hover ~ i
+        {
+            color: #fff;
+            opacity: 0;
+        }
+
+        .s-c:hover
+        {
+            height: 100%;
+            z-index: 1;
+        }
+
+        .s-c.bottom:hover + i
+        {
+            bottom: -25px;
+            animation: moveup 0.3s ease 0.1s forwards;
+        }
+
+        .s-c.top:hover ~ i
+        {
+            top: -25px;
+            animation: movedown 0.3s ease 0.1s forwards;
+        }
+
+        @keyframes moveup
+        {
+            0%{ bottom: -25px; opacity: 0;}
+            100%{ bottom: 0; opacity: 1;}
+        }
+
+        @keyframes movedown
+        {
+            0%{ top: -25px; opacity: 0;}
+            100%{ top: 0; opacity: 1;}
+        }
+
+        .label
+        {
+            transition: 0.3s ease all;
+        }
+
+        .opt-val
+        {
+            position: absolute;
+            left: 14px;
+            width: 217px;
+            height: 21px;
+            opacity: 0;
+            background-color: #fff;
+            transform: scale(0);
+        }
+
+        .option input[type="radio"]:checked ~ .opt-val
+        {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .option input[type="radio"]:checked ~ i
+        {
+            top: 0;
+            bottom: auto;
+            opacity: 1;
+            animation: unset;
+        }
+
+        .option input[type="radio"]:checked ~ i, .option input[type="radio"]:checked ~ .label
+        {
+            color:#fff;
+        }
+
+        .option input[type="radio"]:checked ~ .label:before
+        {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        #options-view-button:not(:checked) ~ #options .option input[type="radio"]:checked ~ .opt-val
+        {
+            top: -30px;
+        }
+
+        .option:nth-child(1) input[type="radio"]:checked ~ .label:before
+        {
+            background-color: #000;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .option:nth-child(1) input[type="radio"]:checked ~ .opt-val
+        {
+            top: -31px;
+        }
+
+        .option:nth-child(2) input[type="radio"]:checked ~ .label:before
+        {
+            background-color: #ea4c89;
+        }
+
+        .option:nth-child(2) input[type="radio"]:checked ~ .opt-val
+        {
+            top: -71px;
+        }
+
+        .option:nth-child(3) input[type="radio"]:checked ~ .label:before
+        {
+            background-color: #0057ff;
+        }
+
+        .option:nth-child(3) input[type="radio"]:checked ~ .opt-val
+        {
+            top: -111px;
+        }
+
+        .option:nth-child(4) input[type="radio"]:checked ~ .label:before
+        {
+            background-color: #32c766;
+        }
+
+        .option:nth-child(4) input[type="radio"]:checked ~ .opt-val
+        {
+            top: -151px;
+        }
+
+        .option:nth-child(5) input[type="radio"]:checked ~ .label:before
+        {
+            background-color: #f48024;
+        }
+
+        .option:nth-child(5) input[type="radio"]:checked ~ .opt-val
+        {
+            top: -191px;
+        }
+
+        .option:nth-child(6) input[type="radio"]:checked ~ .label:before
+        {
+            background-color: #006400;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .option:nth-child(6) input[type="radio"]:checked ~ .opt-val
+        {
+            top: -231px;
+        }
+
+        .option .fa-codepen
+        {
+            color: #000;
+        }
+
+        .option .fa-dribbble
+        {
+            color: #ea4c89;
+        }
+
+        .option .fa-behance
+        {
+            color: #0057ff;
+        }
+
+        .option .fa-hackerrank
+        {
+            color: #32c766;
+        }
+
+        .option .fa-stack-overflow
+        {
+            color: #f48024;
+        }
+
+        .option .fa-free-code-camp
+        {
+            color: #006400;
+        }
+
+        #option-bg
+        {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 40px;
+            transition: 0.3s ease all;
+            z-index: 1;
+            display: none;
+        }
+
+        #options-view-button:checked ~ #options #option-bg
+        {
+            display: block;
+        }
+
+        .option:hover .label
+        {
+            color: #fff;
+        }
+
+        .option:nth-child(1):hover ~ #option-bg
+        {
+            top: 0;
+            background-color: #000;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .option:nth-child(2):hover ~ #option-bg
+        {
+            top: 40px;
+            background-color: #ea4c89;
+        }
+
+        .option:nth-child(3):hover ~ #option-bg
+        {
+            top: 80px;
+            background-color: #0057ff;
+        }
+
+        .option:nth-child(4):hover ~ #option-bg
+        {
+            top: 120px;
+            background-color: #32c766;
+        }
+
+        .option:nth-child(5):hover ~ #option-bg
+        {
+            top: 160px;
+            background-color: #f48024;
+        }
+
+        .option:nth-child(6):hover ~ #option-bg
+        {
+            top: 200px;
+            background-color: #006400;
+            border-radius: 0 0 4px 4px;
+        }
+
+        #ytd-url {
+            display: block;
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            padding: 10px 14px;
+            margin: 20px;
+            color: #fff;
+            font-size: 14px;
+            text-decoration: none;
+            background-color: #143240;
+            border-radius: 4px;
+            box-shadow: 0 10px 20px -5px rgba(20, 50, 64, 0.76);
+        }</style>
+        <meta charset="utf-8">
+        <meta name="description" content="오늘의 번호, 무료 로또 번호 생성기입니다.">
+        <meta property="og:title" content="오늘의 번호"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:url" content="https://dev-guardy.github.io/lotto/"/>
+        <meta property="og:description" content="오늘의 번호, 무료 로또 번호 생성기입니다. 모두 대박나세요!"/>
+
+        <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script>
+        function drawcolor(){
+            var number = document.getElementsByClassName("lottocircle");
+            for (var i = 0 ; i < number.length ; i++) {
+                if(parseInt(number[i].textContent)>=40){
+                    number[i].style="background-color:#000";
+                }else if(parseInt(number[i].textContent)>=30){
+                    number[i].style="background-color:#ea4c89";
+                }else if(parseInt(number[i].textContent)>=20){
+                    number[i].style="background-color:#0057ff";
+                }else if(parseInt(number[i].textContent)>=10){
+                    number[i].style="background-color:#32c766"; 
+                }   
+                else{
+                    number[i].style="background-color:#f48024";  
+                } 
+            }
+        }
+        function randomlottoNumber () {
+            var lotto = [];
+            var cnt = 0;
+            var flag = true;
+            while (cnt < 6) {
+                var number = 0; 
+                number = parseInt(Math.random() * 45) + 1; 
+                for (var i = 0; i < cnt; i++) { 
+                    if (lotto[i] == number) {
+                        flag = false;
+                    }
+                }
+                if (flag==true) { 
+                    lotto[cnt] = number; 
+                    cnt++;
+                }
+                flag = true; 
+            }
+            sort_lotto = lotto.sort(function (a,b){ return a-b; });
+            return sort_lotto;
+        }
+        function milli() {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                resolve('resolved');
+                }, 500);
+            });
+        }
+
+        async function adddiv(j){
+            for(i=0;i<j;i++)
+            {   
+                await milli();
+                lottoarray = randomlottoNumber();
+                $('#div').append($('<div class="numberdiv"><div class="top-div"><div class="top-div-name">' +
+                    ''+(i+1)+'번째 오늘의번호(자동)</div></div><div class="numberset"><div class="lottocircle">' +
+                    '<p class="value">'+lottoarray[0]+'</p></div><div class="lottocircle"><p class="value">'+lottoarray[1]+'</p></div>' +
+                    '<div class="lottocircle"><p class="value">'+lottoarray[2]+'</p></div><div class="lottocircle"><p class="value">' +
+                    ''+lottoarray[3]+'</p></div><div class="lottocircle"><p class="value">'+lottoarray[4]+'</p></div><div class="lottocircle">' +
+                    '<p class="value">'+lottoarray[5]+'</p></div></div></div>'));
+                drawcolor();
+            }
+        }
+         $(document).ready(function(){
+            
+                $('#option1').click(function(){ 
+                    $("#app-cover").hide();
+                    adddiv(1);
+                });
+                $('#option5').click(function(){ 
+                    $("#app-cover").hide(); 
+                    adddiv(5);
+                });
+                $('#option10').click(function(){ 
+                    $("#app-cover").hide(); 
+                    adddiv(10);
+                });
+                $('#option15').click(function(){ 
+                    $("#app-cover").hide(); 
+                    adddiv(15);
+                });
+                $('#option20').click(function(){ 
+                    $("#app-cover").hide(); 
+                    adddiv(20);
+                    
+                });
+        });
+        </script>
+    </head>
+<body>
+
+    <nav class="navigator">
+        <div class="nav_area">
+            <a class="icon" href="/jeonghowep/index">
+                <i class="text">오늘의 번호</i> 
+            </a>
+            <div class="nav_group">
+                <a class="nav_link" href="/jeonghowep/auto">자동번호</a>
+                <a class="nav_link" href="/jeonghowep/semiauto">반자동번호</a>
+            </div>
+        </div>
+    </nav>
+    <div class="main" id="main">
+        <div class="select">
+            <div class="title1">자동 번호 생성</div>
+            <form id="app-cover">
+                <div id="select-box">
+                        <input type="checkbox" id="options-view-button">
+                        <div id="select-button" class="brd">
+                                <div id="selected-value">
+                                    <span>로또 번호 받을 개수</span>
+                                </div>
+                        </div>
+                        <div id="options">
+                                <div class="option" id="option5">
+                                        <input class="s-c top" type="radio" name="platform" value="five">
+                                        <input class="s-c bottom" type="radio" name="platform" value="five">
+                                        <span class="label">5개</span>
+                                        <span class="opt-val">5</span>
+                                </div>
+                                <div class="option" id="option10">
+                                        <input class="s-c top" type="radio" name="platform" value="ten">
+                                        <input class="s-c bottom" type="radio" name="platform" value="ten">
+                                        <span class="label">10개</span>
+                                        <span class="opt-val">10</span>
+                                </div>
+                                <div class="option" id="option15">
+                                        <input class="s-c top" type="radio" name="platform" value="fifteen">
+                                        <input class="s-c bottom" type="radio" name="platform" value="fifteen">
+                                        <span class="label">15개</span>
+                                        <span class="opt-val">15</span>
+                                </div>
+                                <div class="option" id="option20">
+                                        <input class="s-c top" type="radio" name="platform" value="twenty">
+                                        <input class="s-c bottom" type="radio" name="platform" value="twenty">
+                                        <span class="label">20개</span>
+                                        <span class="opt-val">20</span>
+                                </div>
+                                <div id="option-bg"></div>
+                        </div>
+                </div>
+            </form>
+            <div class="div" id=div>
+            </div>
+    </div>
+    </div>
+    <div class="footer">
+        <img src="105197501.jpg" width="100" height="100" class="circle">
+        <p class="name">jeongho<br></p>
+        <div class="detail">
+            <p>GitHub: <a class="blog-link" href="https://github.com/jungho1123/JHWEB">github.com/jungho1123/JHWEB</a></p>
+            <p>#로또 #웹프로젝트 #살려주세요</p>
+        </div>
+    </div>
+
+</body>
+</html>

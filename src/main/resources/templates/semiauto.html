@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>오늘의 번호</title>
+        <meta charset="utf-8">
+        <meta name="description" content="오늘의 번호, 무료 로또 번호 생성기입니다.">
+        <meta property="og:title" content="오늘의 번호"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:description" content="오늘의 번호, 무료 로또 번호 생성기입니다. 모두 대박나세요!"/>
+        <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+<style>
+    body
+    {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        background-color: #e9e9e9;
+    }
+    .navigator{
+        position: relative;
+        width: 100%;
+        display: block;
+        height: 70px;
+        background-color: #000 !important;
+        flex-flow: row nowrap;
+    }
+    .nav_area{
+        float: left;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .icon{
+        float: left;
+    }
+    .text{
+        font-weight: bold;
+        font-style: normal;
+        margin-left: 45px;
+        display: inline-block;
+        color:white;
+        text-decoration: none;
+        font-size: 20px;
+    }
+    .nav_group{
+        margin-left: 30px;
+        float: right;
+    }
+    .nav_link{
+        display: inline-block;
+        color:white;
+        text-decoration: none;
+        font-size: 20px;
+    }
+    .nav_group [class^=nav_link]:before{
+        content: '';
+        display: inline-block;
+        width: 2px;
+        height: 30px;
+        margin-left: 15px;
+        margin-right: 15px;
+        background-color: white;
+        vertical-align: top;
+    }
+    .main{
+        min-height: 350px;
+        width: auto !important;
+    }
+    .footer{
+        width:100%;
+        height:140px;
+        position:absolute;
+        text-align: center;
+        background-color: #6a737b;
+    }
+    .circle{
+        margin-top: -50px;
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+        border-radius: 50%;
+    }
+    .name{
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+        color: #FFaa00;
+        line-height: 1.8;
+    }
+    p{
+        margin: 0;
+        color:white;
+    }
+    .blog-link{
+        text-decoration: none;
+        color:white;
+    }
+
+    .main{
+        height: auto !important;
+    }
+    .numberdiv{
+        width:60%;
+        margin-top:30px;
+        margin-left:auto;
+        margin-right:auto;
+        margin-bottom: 20px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        border: 1px solid rgba(0,0,0,.125);
+        border-radius: .25rem;
+    }
+    .top-div{
+        border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+        box-sizing: border-box;
+        line-height: 30px;
+        background-color: #006400;
+        color:white;
+    }
+    .top-div-name{
+        font-weight: bold;
+        font-size: 15px;
+        padding-left:10px;
+
+    }
+    .numberset{
+        width:400px;
+        margin-left:auto;
+        margin-right:auto;
+        display: flex;
+    }
+    .lottocircle{
+        display: table;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        border: none;
+        text-align: center;
+        font-weight: bold;
+        font-size:15px;
+        margin-top:10px;
+        margin-bottom: 10px;
+        margin-left:15px;
+        margin-right:15px;
+    }
+    .value{
+        display:table-cell;
+        vertical-align: middle;
+    }
+    .div{
+        position: relative;
+        margin-left:auto;
+        margin-right:auto;
+        padding-bottom: 100px;
+        width:800px;
+        min-height:100px;
+    }
+    .checkbox
+    {
+        margin-left:auto;
+        margin-right:auto;
+        margin-bottom: 30px;
+        width: 300px;
+    }
+    .select{
+        margin-top : 130px;
+    }
+    .checkselect{
+        margin-top : 130px;
+        padding-bottom:  20px;
+    }
+    .title1{
+        font-size: large;
+        margin-left: auto;
+        margin-right: auto;
+        width: 120px;
+        font-weight: 700;
+        padding-bottom: 20px;
+    }
+    .title2{
+        font-size: large;
+        margin-left: auto;
+        margin-right: auto;
+        width: 300px;
+        font-weight: 700;
+        padding-bottom: 20px;
+    }
+    {
+        user-select: none;
+    }
+
+    *:focus
+    {
+        outline: none;
+    }
+
+    html, body
+    {
+        height: 100%;
+        min-height: 100%;
+    }
+
+    body
+    {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #ebf3f3;
+    }
+
+    .brd
+    {
+        border: 1px solid #e2eded;
+        border-color: #eaf1f1 #e4eded #dbe7e7 #e4eded;
+    }
+
+    #app-cover
+    {
+        position: relative;
+        margin-left:auto;
+        margin-right:auto;
+        width: 300px;
+        height: 42px;
+    }
+
+    #select-button
+    {
+        position: relative;
+        height: 16px;
+        padding: 12px 14px;
+        background-color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    #options-view-button
+    {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        opacity: 0;
+        cursor: pointer;
+        z-index: 3;
+    }
+
+    #selected-value
+    {
+        font-size: 16px;
+        line-height: 1;
+        margin-right: 26px;
+    }
+
+    .option i
+    {
+        width: 16px;
+        height: 16px;
+    }
+
+    .option, .label
+    {
+        color: #2d3667;
+        font-size: 16px;
+    }
+
+    #chevrons
+    {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 12px;
+        padding: 9px 14px;
+    }
+
+    #chevrons i
+    {
+        display: block;
+        height: 50%;
+        color: #d1dede;
+        font-size: 12px;
+        text-align: right;
+    }
+
+    #options-view-button:checked + #select-button #chevrons i
+    {
+        color: #2d3667;
+    }
+</style>
+        <script>
+            var except_number = [];
+        function drawcolor(){
+            var number = document.getElementsByClassName("lottocircle");
+            for (var i = 0 ; i < number.length ; i++) {
+                if(parseInt(number[i].textContent)>=40){
+                    number[i].style="background-color:#000";
+                }else if(parseInt(number[i].textContent)>=30){
+                    number[i].style="background-color:#ea4c89";
+                }else if(parseInt(number[i].textContent)>=20){
+                    number[i].style="background-color:#0057ff";
+                }else if(parseInt(number[i].textContent)>=10){
+                    number[i].style="background-color:#32c766"; 
+                }   
+                else{
+                    number[i].style="background-color:#f48024";  
+                } 
+            }
+        }
+        function randomlottoNumber () {
+            var lotto = [];
+            var cnt = 0;
+            var flag = true;
+            while (cnt < 6) {
+                var number = 0; 
+                number = parseInt(Math.random() * 45) + 1; 
+                for (var i = 0; i < cnt; i++) { 
+                    if (lotto[i] == number) {
+                        flag = false;   
+                    }
+                }
+                
+                if (flag==true) { 
+                    if(except_number.indexOf(number)<0){
+                        lotto[cnt] = number; 
+                        cnt++;
+                    }
+                }
+                flag = true; 
+            }
+            sort_lotto = lotto.sort(function (a,b){ return a-b; });
+            return sort_lotto;
+        }
+        function check_count(j){
+            if(except_number.indexOf(j)<0){
+                except_number.push(j);
+            }
+            else{
+                except_number.remove(j);
+            }
+        }
+        function milli() {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                resolve('resolved');
+                }, 500);
+            });
+        }
+
+        async function adddiv(j){
+            for(i=0;i<j;i++)
+            {   
+                await milli();
+                lottoarray = randomlottoNumber();
+                $('#div').append($('<div class="numberdiv"><div class="top-div"><div class="top-div-name">'+(i+1)+'번째 오늘의번호(반자동)</div></div><div class="numberset"><div class="lottocircle"><p class="value">'+lottoarray[0]+'</p></div><div class="lottocircle"><p class="value">'+lottoarray[1]+'</p></div><div class="lottocircle"><p class="value">'+lottoarray[2]+'</p></div><div class="lottocircle"><p class="value">'+lottoarray[3]+'</p></div><div class="lottocircle"><p class="value">'+lottoarray[4]+'</p></div><div class="lottocircle"><p class="value">'+lottoarray[5]+'</p></div></div></div>'));
+                drawcolor();
+            }
+        }
+         $(document).ready(function(){
+                var except_number;
+                $('#option1').click(function(){ 
+                    $("#checkselect").hide();
+                    adddiv(1);
+                });
+                $('#option5').click(function(){ 
+                    $("#checkselect").hide(); 
+                    adddiv(5);
+                });
+                $('#option10').click(function(){ 
+                    $("#checkselect").hide();
+                    adddiv(10);
+                });
+                $('#option15').click(function(){ 
+                    $("#checkselect").hide();
+                    adddiv(15);
+                });
+                $('#option20').click(function(){ 
+                    $("#checkselect").hide(); 
+                    adddiv(20);
+                    
+                });
+        });
+        </script>
+    </head>
+<body>
+    <nav class="navigator">
+        <div class="nav_area">
+            <a class="icon" href="/jeonghowep/index">
+                <i class="text">오늘의 번호</i> 
+            </a>
+            <div class="nav_group">
+                <a class="nav_link" href="/jeonghowep/auto">자동번호</a>
+                <a class="nav_link" href="/jeonghowep/semiauto">반자동번호</a>
+            </div>
+        </div>
+    </nav>
+    <div class="main" id="main">
+        <div class="checkselect"  id="checkselect">
+            <div class="title2">반자동 번호 생성(제외할 번호 체크)</div>
+            <table width="250" class="checkbox">
+                <tbody>
+                    <tr>
+                        <td width="60"><input type="checkbox" onclick="check_count(1)">1</td>
+                        <td width="60"><input type="checkbox" onclick="check_count(2)">2</td>
+                        <td width="60"><input type="checkbox" onclick="check_count(3)">3</td>
+                        <td width="60"><input type="checkbox" onclick="check_count(4)">4</td>
+                        <td width="60"><input type="checkbox" onclick="check_count(5)">5</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" onclick="check_count(6)">6 </td>
+                        <td><input type="checkbox" onclick="check_count(7)">7</td>
+                        <td><input type="checkbox" onclick="check_count(8)">8 </td>
+                        <td><input type="checkbox" onclick="check_count(9)">9 </td>
+                        <td><input type="checkbox" onclick="check_count(10)">10</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" onclick="check_count(11)">11</td>
+                        <td><input type="checkbox" onclick="check_count(12)">12</td>
+                        <td><input type="checkbox" onclick="check_count(13)">13</td>
+                        <td><input type="checkbox" onclick="check_count(14)">14</td>
+                        <td><input type="checkbox" onclick="check_count(15)">15</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" onclick="check_count(16)">16</td>
+                        <td><input type="checkbox" onclick="check_count(17)">17</td>
+                        <td><input type="checkbox" onclick="check_count(18)">18</td>
+                        <td><input type="checkbox" onclick="check_count(19)">19</td>
+                        <td><input type="checkbox" onclick="check_count(20)">20</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" onclick="check_count(21)">21</td>
+                        <td><input type="checkbox" onclick="check_count(22)">22</td>
+                        <td><input type="checkbox" onclick="check_count(23)">23</td>
+                        <td><input type="checkbox" onclick="check_count(24)">24</td>
+                        <td><input type="checkbox" onclick="check_count(25)">25</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" onclick="check_count(26)">26</td>
+                        <td><input type="checkbox" onclick="check_count(27)">27</td>
+                        <td><input type="checkbox" onclick="check_count(28)">28</td>
+                        <td><input type="checkbox" onclick="check_count(29)">29</td>
+                        <td><input type="checkbox" onclick="check_count(30)">30</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" onclick="check_count(31)">31</td>
+                        <td><input type="checkbox" onclick="check_count(32)">32</td>
+                        <td><input type="checkbox" onclick="check_count(33)">33</td>
+                        <td><input type="checkbox" onclick="check_count(34)">34</td>
+                        <td><input type="checkbox" onclick="check_count(35)">35</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" onclick="check_count(36)">36</td>
+                        <td><input type="checkbox" onclick="check_count(37)">37</td>
+                        <td><input type="checkbox" onclick="check_count(38)">38</td>
+                        <td><input type="checkbox" onclick="check_count(39)">39</td>
+                        <td><input type="checkbox" onclick="check_count(40)">40</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" onclick="check_count(41)">41</td>
+                        <td><input type="checkbox" onclick="check_count(42)">42</td>
+                        <td><input type="checkbox" onclick="check_count(43)">43</td>
+                        <td><input type="checkbox" onclick="check_count(44)">44</td>
+                        <td><input type="checkbox" onclick="check_count(45)">45</td>
+                    </tr>
+                </tbody>
+            </table>
+            <form id="app-cover">
+                <div id="select-box">
+                        <input type="checkbox" id="options-view-button">
+                        <div id="select-button" class="brd">
+                                <div id="selected-value">
+                                    <span>로또 번호 받을 개수</span>
+                                </div>
+                        </div>
+                        <div id="options">
+                                <div class="option" id="option5">
+                                        <input class="s-c top" type="radio" name="platform" value="five">
+                                        <input class="s-c bottom" type="radio" name="platform" value="five">
+                                        <span class="label">5개</span>
+                                        <span class="opt-val">5</span>
+                                </div>
+                                <div class="option" id="option10">
+                                        <input class="s-c top" type="radio" name="platform" value="ten">
+                                        <input class="s-c bottom" type="radio" name="platform" value="ten">
+                                        <span class="label">10개</span>
+                                        <span class="opt-val">10</span>
+                                </div>
+                                <div class="option" id="option15">
+                                        <input class="s-c top" type="radio" name="platform" value="fifteen">
+                                        <input class="s-c bottom" type="radio" name="platform" value="fifteen">
+                                        <span class="label">15개</span>
+                                        <span class="opt-val">15</span>
+                                </div>
+                                <div class="option" id="option20">
+                                        <input class="s-c top" type="radio" name="platform" value="twenty">
+                                        <input class="s-c bottom" type="radio" name="platform" value="twenty">
+                                        <span class="label">20개</span>
+                                        <span class="opt-val">20</span>
+                                </div>
+                                <div id="option-bg"></div>
+                        </div>
+                </div>
+            </form>
+        </div>
+        <div class="div" id=div>
+        </div>
+    </div>
+    <div class="footer">
+        <img src="105197501.jpg" width="100" height="100" class="circle">
+        <p class="name">jeongho<br></p>
+        <div class="detail">
+            <p>GitHub: <a class="blog-link" href="https://github.com/jungho1123/JHWEB">github.com/jungho1123/JHWEB</a></p>
+            <p>#로또 #웹프로젝트 #살려주세요</p>
+        </div>
+    </div>
+</body>
+</html>

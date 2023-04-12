@@ -41,13 +41,25 @@ public class HomeController {
         MemberDTO loginResult=memberService.login(memberDTO);
         if(loginResult!=null){
             session.setAttribute("loginid",loginResult.getMemberid());
-            return "homepage";
+            return "index";
         }else {
             return "loginpage";
         }
 
     }
+    @GetMapping("/auto")
+    public String auto () {
+        return "auto";
+    }
+    @GetMapping("/semiauto")
+    public String semiauto () {
+        return "semiauto";
+    }
 
+    @GetMapping("/index")
+    public String index () {
+        return "index";
+    }
     }
 
 
