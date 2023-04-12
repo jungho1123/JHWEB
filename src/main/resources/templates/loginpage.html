@@ -48,8 +48,20 @@
     cursor: pointer;
     transition: background-color 0.2s ease;
   }
+  input[type="button"] {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
 
   input[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+  input[type="button"]:hover {
     background-color: #3e8e41;
   }
 </style>
@@ -62,7 +74,9 @@
   <label for="memberpassword">Password:</label>
   <input type="password" id="memberpassword" name="memberpassword"><br><br>
   <input type="submit" value="Login">
-  <a href="/jeonghowep/register"><button type="submit">register</button></a>
+  <a href="/jeonghowep/register"><input type="button" value="Register"></a>
+
 </form>
+
 </body>
 </html>
